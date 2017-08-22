@@ -29,16 +29,15 @@ try
 		if !([player] call lilc_common_fnc_isAlive) throw false;
 
 		private _currentVehicles = (allMissionObjects "AllVehicles") select
-		{
-			private _vehicle = _x;
-			(isEngineOn _vehicle) &&
-			!(
-				((getPosATL _vehicle) select 2) < 45 &&
-				!(_vehicle getVariable ["lilc_transponder_status", false]) &&
+		 private _currentVehicles = (allMissionObjects "AllVehicles") select
+        	{
+           		 private _vehicle = _x;
+			 private _d = (missionconfigfile >> "ATCInterface" >> "Radarrange");
+				!(
+				((getPosATL _vehicle) select 2) < _d )&&
 				(({ (_vehicle inArea _x) } count lilc_atcInterface_airports) <= 0)
-			) &&
-			(_vehicle isKindOf "Air")
-		};
+			    	) && (_vehicle isKindOf "Air")
+        	};
 
 		{
 			private _control = _x;
